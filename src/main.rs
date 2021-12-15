@@ -1,5 +1,7 @@
 #![allow(unused)]
+mod cli;
 
+use cli::get_app_cli;
 use error_chain::error_chain;
 use serde::Deserialize;
 use serde_json::json;
@@ -18,9 +20,9 @@ use reqwest::Client;
 #[derive(Deserialize, Debug, StructOpt)]
 struct Cli {
     /// Local IP address
-    localaddress: String,
-    /// Number of Lights
-    numberoflights: u32,
+    // localaddress: String,
+    // /// Number of Lights
+    // numberoflights: u32,
     /// On/Off
     onoff: u32,
     /// Brightness
@@ -33,8 +35,11 @@ struct Cli {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Cli::from_args();
 
+    let elgato_ip = env::var("ELGATO_IP")?;
+    let number_of_lights = env::var("NUMBER_OF_LIGHTS")?;
+
     let body = json!({
-        "numberOfLights":&args.numberoflights,
+        "numberOfLights":number_of_lights,
         "lights":[
             {
                 "on":&args.onoff,
@@ -43,7 +48,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         ]
     });
-    let url = format!("http://{}:{}", &args.localaddress, "9123/elgato/lights");
+    let url = format!("http://{}:{}", elgato_ip, "9123/elgato/lights");
     
     println!("State: {}", url);
 

@@ -407,6 +407,7 @@ dependencies = [
 name = "keylight"
 version = "0.1.0"
 dependencies = [
+ "clap",
  "error-chain",
  "reqwest",
  "serde",
