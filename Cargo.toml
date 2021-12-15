@@ -7,7 +7,6 @@ edition = "2021"
 
 [dependencies]
 clap = "*"
-error-chain = "*"
 reqwest = { version = "*", features = ["json", "blocking"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"

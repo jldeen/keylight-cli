@@ -2,49 +2,33 @@
 mod cli;
 
 use cli::get_app_cli;
-use error_chain::error_chain;
-use serde::Deserialize;
 use serde_json::json;
 use std::env;
-use structopt::StructOpt;
 use reqwest::Client;
-
-// error_chain! {
-//     foreign_links {
-//         EnvVar(env::VarError);
-//         HttpRequest(reqwest::Error);
-//     }
-// }
-
-/// Search for a pattern in a file and display the lines that contain it.
-#[derive(Deserialize, Debug, StructOpt)]
-struct Cli {
-    /// Local IP address
-    // localaddress: String,
-    // /// Number of Lights
-    // numberoflights: u32,
-    /// On/Off
-    onoff: u32,
-    /// Brightness
-    brightness: u32,
-    /// Temp
-    temp: u32,
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let args = Cli::from_args();
+    let version = format!(
+        "{}.{}",
+        env!("CARGO_PKG_VERSION"),
+        option_env!("BUILD_BUILDID").unwrap_or("0")
+    );
+    
+    let matches = get_app_cli(&version).get_matches();
+    let elgato_ip = matches.value_of("ELGATO_IP").unwrap();
+    let numberoflights = matches.value_of("NUMBER_OF_LIGHTS").unwrap();
 
-    let elgato_ip = env::var("ELGATO_IP")?;
-    let number_of_lights = env::var("NUMBER_OF_LIGHTS")?;
+    let switch = matches.value_of("SWITCH").unwrap();
+    let brightness = matches.value_of("BRIGHTNESS").unwrap();
+    let temperature = matches.value_of("TEMPERATURE").unwrap();
 
     let body = json!({
-        "numberOfLights":number_of_lights,
+        "numberOfLights":numberoflights,
         "lights":[
             {
-                "on":&args.onoff,
-                "brightness":&args.brightness,
-                "temperature":&args.temp
+                "on":switch,
+                "brightness":brightness,
+                "temperature":temperature
             }
         ]
     });
