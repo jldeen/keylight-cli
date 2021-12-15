@@ -52,8 +52,8 @@ pub fn get_app_cli<'a, 'b>(version: &'b str) -> App<'a, 'b> {
         )
         .arg(
             Arg::with_name("verbose")
-            .long("verbose")
-            .short("v")
-            .help("Verbose mode enabled")
+                .long("verbose")
+                .short("v")
+                .help("Verbose mode enabled"),
         )
 }
