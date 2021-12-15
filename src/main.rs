@@ -2,9 +2,9 @@
 mod cli;
 
 use cli::get_app_cli;
+use reqwest::Client;
 use serde_json::json;
 use std::env;
-use reqwest::Client;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -13,7 +13,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         env!("CARGO_PKG_VERSION"),
         option_env!("BUILD_BUILDID").unwrap_or("0")
     );
-    
+
     let matches = get_app_cli(&version).get_matches();
     let elgato_ip = matches.value_of("ELGATO_IP").unwrap();
     let numberoflights = matches.value_of("NUMBER_OF_LIGHTS").unwrap();
@@ -33,16 +33,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         ]
     });
     let url = format!("http://{}:{}", elgato_ip, "9123/elgato/lights");
-    
+
     println!("State: {}", url);
 
     let client = reqwest::Client::new();
 
-    let response = client
-        .put(url)
-        .json(&body)
-        .send()
-        .await?;
+    let response = client.put(url).json(&body).send().await?;
 
     let status = response.status();
     let response_body = response.text().await?;
@@ -50,7 +46,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("Response status: {}", status);
     println!("Response text: {}", response_body);
-    println!("Response json: {:?}", response_json); 
+    println!("Response json: {:?}", response_json);
 
     Ok(())
 }

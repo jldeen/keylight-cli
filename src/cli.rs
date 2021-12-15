@@ -12,11 +12,7 @@ pub fn get_app_cli<'a, 'b>(version: &'b str) -> App<'a, 'b> {
                 .help("Elgato Keylight IP address")
                 .index(4)
                 .required(true)
-                .aliases(&[
-                    "elgato_ip",
-                    "elgato-ip",
-                    "elgato ip",
-                ])
+                .aliases(&["elgato_ip", "elgato-ip", "elgato ip"])
                 .env("ELGATO_IP")
                 .takes_value(true),
         )
@@ -27,11 +23,7 @@ pub fn get_app_cli<'a, 'b>(version: &'b str) -> App<'a, 'b> {
                 .help("Number of Elgato Keylights in use")
                 .required(true)
                 .index(5)
-                .aliases(&[
-                    "number_of_lights",
-                    "number-of-lights",
-                    "number of lights",
-                ])
+                .aliases(&["number_of_lights", "number-of-lights", "number of lights"])
                 .env("NUMBER_OF_LIGHTS")
                 .takes_value(true),
         )
