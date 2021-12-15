@@ -6,8 +6,8 @@ This is a cross platform lightweight CLI tool to simply and easily control your 
 
 ## Work To Be Done
 
-- [X] Support for `on` / `off` toggle arguements. **Added in v0.2.0** 
-- [X] Add help menu with `-h` flag. **Added in v0.2.0**
+- [X] ~~Support for `on` / `off` toggle arguements. **Added in v0.2.0**~~
+- [X] ~~Add help menu with `-h` flag. **Added in v0.2.0**~~
 - [ ] Support for brightness and temperature via preset arguments, I.E, `low`, `medium`, and `high` or `warm`, `medium`, and `cool`.
 - [ ] Testing with more than 1 Elgato Keylight.
 
