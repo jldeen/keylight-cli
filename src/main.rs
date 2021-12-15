@@ -1,22 +1,23 @@
-#![allow(unused)]
 mod cli;
 
 use cli::get_app_cli;
 use reqwest::Client;
 use serde_json::json;
-use std::collections::HashMap;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let version = format!("v{}", env!("CARGO_PKG_VERSION"));
 
     let matches = get_app_cli(&version).get_matches();
-    let elgato_ip = matches.value_of("ELGATO_IP").unwrap();
-    let numberoflights = matches.value_of("NUMBER_OF_LIGHTS").unwrap();
-    let switch = matches
-        .value_of("switch")
-        .and_then(|s| s.parse::<u8>().ok())
-        .unwrap();
+    let elgato_ip = matches.value_of("elgato_ip").unwrap();
+    let numberoflights = matches.value_of("number_of_lights").unwrap();
+    let switch = if matches.value_of("switch").unwrap() == "off" {
+        0
+    } else {
+        1
+    };
+    println!("Power switch value: {}", switch);
+
     let brightness = matches
         .value_of("brightness")
         .and_then(|s| s.parse::<u8>().ok())
@@ -25,8 +26,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .value_of("temperature")
         .and_then(|s| s.parse::<u8>().ok())
         .unwrap();
-
-    println!("Value for switch: {}", switch);
 
     let body = json!({
         "numberOfLights":numberoflights,
@@ -43,7 +42,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("State: {}", url);
 
-    let client = reqwest::Client::new();
+    let client = Client::new();
 
     let response = client.put(url).json(&body).send().await?;
 

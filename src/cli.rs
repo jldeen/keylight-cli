@@ -9,46 +9,51 @@ pub fn get_app_cli<'a, 'b>(version: &'b str) -> App<'a, 'b> {
             Arg::with_name("switch")
                 .index(1)
                 .required(true)
-                .short("s")
-                .long("switch")
-                .takes_value(true)
-                .value_name("ON/OFF")
+                .value_name("on/off")
                 .help("Switch value for light status: Accepted values are: on, off."),
         )
         .arg(
             Arg::with_name("brightness")
+                .long("brightness")
+                .short("b")
                 .help("Brightness value for light: Accepted values are: low, medium, high.")
                 .required(true)
-                .index(2)
+                .env("brightness")
                 .default_value("20"),
         )
         .arg(
             Arg::with_name("temperature")
+                .long("temperature")
+                .short("t")
                 .help("Temperature value for light: Accepted values are: warm, medium, cool.")
                 .required(true)
-                .index(3)
+                .env("temperature")
                 .default_value("213"),
         )
         .arg(
-            Arg::with_name("ELGATO_IP")
-                .long("elgato-ip-address")
-                .short("ip")
+            Arg::with_name("elgato_ip")
+                .long("elgato-ip")
+                .short("i")
                 .help("Elgato Keylight IP address")
-                .index(4)
                 .required(true)
                 .aliases(&["elgato_ip", "elgato-ip", "elgato ip"])
-                .env("ELGATO_IP")
+                .env("elgato_ip")
                 .takes_value(true),
         )
         .arg(
-            Arg::with_name("NUMBER_OF_LIGHTS")
+            Arg::with_name("number_of_lights")
                 .long("number-of-lights")
-                .short("lights")
+                .short("n")
                 .help("Number of Elgato Keylights in use")
                 .required(true)
-                .index(5)
                 .aliases(&["number_of_lights", "number-of-lights", "number of lights"])
-                .env("NUMBER_OF_LIGHTS")
+                .env("number_of_lights")
                 .takes_value(true),
+        )
+        .arg(
+            Arg::with_name("verbose")
+                .long("verbose")
+                .short("v")
+                .help("Verbose mode enabled"),
         )
 }
