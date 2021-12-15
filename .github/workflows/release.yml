@@ -1,0 +1,107 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  linux:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Run cargo build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - run: mv target/release/keylight target/release/keylight-linux
+
+      - name: Upload cli
+        uses: actions/upload-artifact@v2
+        with:
+          name: keylightbuild
+          path: target/release/keylight-linux
+
+  macos:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Run cargo build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - run: mv target/release/keylight target/release/keylight-macos
+
+      - name: Upload cli
+        uses: actions/upload-artifact@v2
+        with:
+          name: keylightbuild
+          path: target/release/keylight-macos
+
+  windows:
+    name: Build
+    runs-on: windows-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Run cargo build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: Upload cli
+        uses: actions/upload-artifact@v2
+        with:
+          name: keylightbuild
+          path: target/release/keylight.exe
+
+  publish:
+    name: Publish Release
+    runs-on: ubuntu-latest
+    needs: [linux, macos, windows]
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: keylightbuild
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            keylight.exe
+            keylight-linux
+            keylight-macos
+            
