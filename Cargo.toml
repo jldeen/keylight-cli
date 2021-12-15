@@ -10,5 +10,4 @@ clap = "*"
 reqwest = { version = "*", features = ["json", "blocking"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
-structopt = "*"
 tokio = { version = "*", features = ["macros"] }

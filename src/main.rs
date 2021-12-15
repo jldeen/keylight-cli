@@ -13,12 +13,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = get_app_cli(&version).get_matches();
     let elgato_ip = matches.value_of("ELGATO_IP").unwrap();
     let numberoflights = matches.value_of("NUMBER_OF_LIGHTS").unwrap();
-    let switch = matches.value_of("switch").and_then(|s| s.parse::<u8>().ok())
-    .unwrap();;
-    let brightness = matches.value_of("brightness").and_then(|s| s.parse::<u8>().ok())
-    .unwrap();;
-    let temperature = matches.value_of("temperature").and_then(|s| s.parse::<u8>().ok())
-    .unwrap();;
+    let switch = matches
+        .value_of("switch")
+        .and_then(|s| s.parse::<u8>().ok())
+        .unwrap();
+    let brightness = matches
+        .value_of("brightness")
+        .and_then(|s| s.parse::<u8>().ok())
+        .unwrap();
+    let temperature = matches
+        .value_of("temperature")
+        .and_then(|s| s.parse::<u8>().ok())
+        .unwrap();
 
     println!("Value for switch: {}", switch);
 

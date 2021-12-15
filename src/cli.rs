@@ -13,7 +13,7 @@ pub fn get_app_cli<'a, 'b>(version: &'b str) -> App<'a, 'b> {
                 .long("switch")
                 .takes_value(true)
                 .value_name("ON/OFF")
-                .help("Switch value for light status: Accepted values are: on, off.")
+                .help("Switch value for light status: Accepted values are: on, off."),
         )
         .arg(
             Arg::with_name("brightness")
