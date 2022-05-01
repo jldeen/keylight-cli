@@ -1,10 +1,10 @@
 mod cli;
 
 // Logging
-use std::io::Write;
 use chrono::Local;
 use env_logger::Builder;
 use log::LevelFilter;
+use std::io::Write;
 
 // Required deps
 use cli::get_app_cli;
@@ -14,7 +14,7 @@ use serde_json::json;
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let verbose;
-    
+
     let version = format!("v{}", env!("CARGO_PKG_VERSION"));
     let matches = get_app_cli(&version).get_matches();
 
@@ -27,7 +27,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Builder::new()
         .format(|buf, record| {
-            writeln!(buf,
+            writeln!(
+                buf,
                 "{} [{}] - {}",
                 Local::now().format("%Y-%m-%dT%H:%M:%S"),
                 record.level(),
@@ -40,7 +41,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let elgato_ip = matches.value_of("elgato_ip").unwrap();
     let numberoflights = matches.value_of("number_of_lights").unwrap();
-    
+
     let switch = if matches.value_of("switch").unwrap() == "off" {
         0;
         let power_status = "off";
@@ -82,7 +83,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let status = response.status();
     let response_body = response.text().await?;
     let response_json: serde_json::Value = serde_json::from_str(&response_body)?;
-    
+
     log::info!("Response status: {}", status);
     log::info!("Response text: {}", response_body);
     log::info!("Response json: {:?}", response_json);

@@ -1,6 +1,6 @@
-use clap::{Command, Arg};
+use clap::{Arg, Command};
 
-pub fn get_app_cli<'a>(version: &'a str) -> Command<'a,> {
+pub fn get_app_cli<'a>(version: &'a str) -> Command<'a> {
     Command::new("keylight")
         .version(&*version)
         .author("Jessica Deen <jessica.deen@microsoft.com>")
@@ -58,6 +58,6 @@ pub fn get_app_cli<'a>(version: &'a str) -> Command<'a,> {
                 .long("verbose")
                 .short('v')
                 .multiple_occurrences(true)
-                .help("Log Level")
+                .help("Log Level"),
         )
 }
