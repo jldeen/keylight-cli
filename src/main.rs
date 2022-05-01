@@ -13,16 +13,14 @@ use serde_json::json;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let verbose;
-
     let version = format!("v{}", env!("CARGO_PKG_VERSION"));
     let matches = get_app_cli(&version).get_matches();
 
-    match matches.occurrences_of("verbose") {
-        0 => verbose = LevelFilter::Off,
-        1 => verbose = LevelFilter::Info,
-        2 => verbose = LevelFilter::Debug,
-        3 | _ => verbose = LevelFilter::Trace,
+    let verbose = match matches.occurrences_of("verbose") {
+        0 => LevelFilter::Off,
+        1 => LevelFilter::Info,
+        2 => LevelFilter::Debug,
+        _ => LevelFilter::Trace,
     };
 
     Builder::new()
@@ -42,15 +40,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let elgato_ip = matches.value_of("elgato_ip").unwrap();
     let numberoflights = matches.value_of("number_of_lights").unwrap();
 
-    let switch = if matches.value_of("switch").unwrap() == "off" {
-        0;
+    let switch = match matches.value_of("switch").unwrap() {
+        "off" => 0,
+        "on" => 1,
+        _ => 0,
+    };
+
+    if switch == 0 {
         let power_status = "off";
         println!("Elgato Keylight is: {}", power_status);
     } else {
-        1;
         let power_status = "on";
-        log::info!("Elgato Keylight is: {}", power_status);
-    };
+        println!("Elgato Keylight is: {}", power_status);
+    }
 
     let brightness = matches
         .value_of("brightness")

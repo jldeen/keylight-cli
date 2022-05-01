@@ -1,6 +1,6 @@
 use clap::{Arg, Command};
 
-pub fn get_app_cli<'a>(version: &'a str) -> Command<'a> {
+pub fn get_app_cli(version: &str) -> Command {
     Command::new("keylight")
         .version(&*version)
         .author("Jessica Deen <jessica.deen@microsoft.com>")
