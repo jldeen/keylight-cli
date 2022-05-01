@@ -1,12 +1,16 @@
 [package]
 name = "keylight"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = "*"
+chrono = "*"
+clap = { version = "3.1.14", features = ["env"] }
+clap_logger = "*"
+env_logger = "*"
+log = "*"
 reqwest = { version = "*", features = ["json", "blocking"] }
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
