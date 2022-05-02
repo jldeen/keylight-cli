@@ -11,7 +11,6 @@ use cli::get_app_cli;
 use reqwest::Client;
 use serde_json::{json, Value};
 
-
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let version = format!("v{}", env!("CARGO_PKG_VERSION"));
