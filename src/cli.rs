@@ -9,9 +9,9 @@ pub fn get_app_cli(version: &str) -> Command {
             Arg::new("switch")
                 .index(1)
                 .required(true)
-                .value_name("on/off")
-                .possible_values(&["off", "on"])
-                .help("Toggle light on or off"),
+                .value_name("on/off/status")
+                .possible_values(&["off", "on", "status"])
+                .help("Toggle light on, off, or query current power state"),
         )
         .arg(
             Arg::new("brightness")
