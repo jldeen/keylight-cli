@@ -2,7 +2,7 @@ use clap::{Arg, Command};
 
 pub fn get_app_cli(version: &str) -> Command {
     Command::new("keylight")
-        .version(&*version)
+        .version(version)
         .author("Jessica Deen <jessicadeen@me.com>")
         .about("Easy CLI to control Elgato Keylight")
         .arg(
@@ -10,7 +10,7 @@ pub fn get_app_cli(version: &str) -> Command {
                 .index(1)
                 .required(true)
                 .value_name("on/off/status")
-                .possible_values(&["off", "on", "status"])
+                .possible_values(["off", "on", "status"])
                 .help("Toggle light on, off, or query current power state"),
         )
         .arg(

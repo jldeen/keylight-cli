@@ -18,7 +18,11 @@ This is a cross platform lightweight CLI tool to simply and easily control your 
 
 This app should build with minimal dependencies.  It's been tested with Rust 1.60 on macOS Sonoma 14.4.1 and 1 Elgato Keylight.
 
-`cargo build`
+```sh
+cargo build
+sudo mv target/debug/keylight /usr/local/bin/keylight
+keylight status --elgato-ip <ip-address-here> --number-of-lights 1
+```
 
 ## Running The App
 
