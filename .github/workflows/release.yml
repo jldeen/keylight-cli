@@ -7,11 +7,11 @@ on:
 
 jobs:
   linux:
-    name: Build
+    name: Build Linux
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
@@ -35,11 +35,11 @@ jobs:
           path: target/release/keylight-linux
 
   macos:
-    name: Build
+    name: Build macOS
     runs-on: macos-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
@@ -63,7 +63,7 @@ jobs:
           path: target/release/keylight-macos
 
   windows:
-    name: Build
+    name: Build Windows
     runs-on: windows-latest
     steps:
       - name: Checkout sources
