@@ -16,17 +16,21 @@ This is a cross platform lightweight CLI tool to simply and easily control your 
 
 ## Building The App
 
-This app should build with minimal dependencies.  It's been tested with Rust 1.60 on macOS Monterey 12.4 and 1 Elgato Keylight.
+This app should build with minimal dependencies.  It's been tested with Rust 1.60 on macOS Sonoma 14.4.1 and 1 Elgato Keylight.
 
-`cargo build`
+```sh
+cargo build
+sudo mv target/debug/keylight /usr/local/bin/keylight
+keylight status --elgato-ip <ip-address-here> --number-of-lights 1
+```
 
 ## Running The App
 
 This CLI tool has three mandatory parameters and two optional ones (that have default values).  There are environment variables that can be provided in place of CLI arguments.
 
 ```
-keylight v0.2.2
-Jessica Deen <jessica.deen@microsoft.com>
+keylight v0.2.3
+Jessica Deen <jessicadeen@me.com>
 Easy CLI to control Elgato Keylight
 
 USAGE:
@@ -57,4 +61,31 @@ OPTIONS:
 
     -V, --version
             Print version information
+```
+
+## Setting up as daemon on macOS
+
+```sh
+# clone this repo
+# from within root of this repo folder
+mkdir -p ~/bin && cp onair.sh ~/bin # makes a bin directory in your user's home folder, copies onair script to that folder
+
+# add your ip address and system username to the plist file
+sed -i 's/<REPLACE_IP_ADDRESS>/your-elgato-ip-address-here/g' com.keylight.task.plist
+sed -i 's/<REPLACE_USER>/your-username-here/g' com.keylight.task.plist 
+
+# copy updated plist to launchdaemon folder
+cp com.keylight.task.plist /Library/LaunchDaemons/com.keylight.task.plist
+
+# change permissions to plist file
+sudo chown root:wheel /Library/LaunchDaemons/com.keylight.task.plist
+
+# load/start daemon/plist
+sudo launchctl unload -w /Library/LaunchDaemons/com.keylight.task.plist
+sudo launchctl load -w /Library/LaunchDaemons/com.keylight.task.plist
+sudo launchctl start -w /Library/LaunchDaemons/com.keylight.task.plist
+
+# view logs
+tail -f /tmp/keylight.stdout #standard out logs
+tail -f /tmp/keylight.stderr #standard error logs
 ```
