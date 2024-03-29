@@ -29,7 +29,7 @@ keylight status --elgato-ip <ip-address-here> --number-of-lights 1
 This CLI tool has three mandatory parameters and two optional ones (that have default values).  There are environment variables that can be provided in place of CLI arguments.
 
 ```
-keylight v0.2.2
+keylight v0.2.3
 Jessica Deen <jessicadeen@me.com>
 Easy CLI to control Elgato Keylight
 
