@@ -3,7 +3,7 @@ use clap::{Arg, Command};
 pub fn get_app_cli(version: &str) -> Command {
     Command::new("keylight")
         .version(&*version)
-        .author("Jessica Deen <jessica.deen@microsoft.com>")
+        .author("Jessica Deen <jessicadeen@me.com>")
         .about("Easy CLI to control Elgato Keylight")
         .arg(
             Arg::new("switch")
