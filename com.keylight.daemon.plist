@@ -11,25 +11,23 @@
       <key>number_of_lights</key>
       <string>1</string>
     </dict>
+    <key>GroupName</key>
+    <string>wheel</string>
     <key>Label</key>
     <string>com.keylight</string>
-    <key>Program</key>
-    <string></Users/<REPLACE_USER>/bin/onair.sh></string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>sh</string>
+      <string>-c</string>
+      <string>/Users/<REPLACE_USER>/bin/onair.sh</string>
+    </array>
     <key>RunAtLoad</key>
     <true/>
-    <key>KeepAlive</key>
-    <false/>
-    <key>LaunchOnlyOnce</key>        
-    <true/>
-    <key>StandardOutPath</key>
-    <string>/tmp/keylight.stdout</string>
     <key>StandardErrorPath</key>
     <string>/tmp/keylight.stderr</string>
+    <key>StandardOutPath</key>
+    <string>/tmp/keylight.stdout</string>
     <key>UserName</key>
-    <string>admin</string>
-    <key>GroupName</key>
-    <string>admin</string>
-    <key>InitGroups</key>
-    <true/>
+    <string>root</string>
   </dict>
 </plist>
