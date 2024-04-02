@@ -71,19 +71,14 @@ OPTIONS:
 mkdir -p ~/bin && cp onair.sh ~/bin # makes a bin directory in your user's home folder, copies onair script to that folder
 
 # add your ip address and system username to the plist file
-sed -i 's/<REPLACE_IP_ADDRESS>/your-elgato-ip-address-here/g' com.keylight.task.plist
-sed -i 's/<REPLACE_USER>/your-username-here/g' com.keylight.task.plist 
+sed -i 's/<REPLACE_IP_ADDRESS>/your-elgato-ip-address-here/g' com.keylight.daemon.plist
+sed -i 's/<REPLACE_USER>/your-username-here/g' com.keylight.daemon.plist
 
 # copy updated plist to launchdaemon folder
-cp com.keylight.task.plist /Library/LaunchDaemons/com.keylight.task.plist
-
-# change permissions to plist file
-sudo chown root:wheel /Library/LaunchDaemons/com.keylight.task.plist
+cp com.keylight.daemon.plist /Library/LaunchDaemons/com.keylight.daemon.plist
 
 # load/start daemon/plist
-sudo launchctl unload -w /Library/LaunchDaemons/com.keylight.task.plist
-sudo launchctl load -w /Library/LaunchDaemons/com.keylight.task.plist
-sudo launchctl start -w /Library/LaunchDaemons/com.keylight.task.plist
+sudo launchctl load -w /Library/LaunchDaemons/com.keylight.daemon.plist
 
 # view logs
 tail -f /tmp/keylight.stdout #standard out logs
