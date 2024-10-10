@@ -41,7 +41,7 @@ jobs:
         run: mv target/release/keylight.exe target/release/keylight.exe
 
       - name: Upload cli
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: keylightbuild-${{ matrix.os }}
           path: |
