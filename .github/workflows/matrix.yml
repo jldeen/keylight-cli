@@ -48,7 +48,7 @@ jobs:
             target/release/keylight-linux
             target/release/keylight-macos
             target/release/keylight.exe
-
+  
   # publish:
   #   name: Publish Release
   #   runs-on: ubuntu-latest
