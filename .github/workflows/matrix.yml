@@ -58,10 +58,20 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Attest release artifacts
-        uses: actions/attest-build-provenance@1c608d11d69870c2092266b3f9a6f3abbf17002c # v1.4.3
-        with:
-          subject-path: "target/release/keylight-*"
+      - name: Checkout cli/cli
+        uses: actions/checkout@v4
+
+      - name: Merge built artifacts
+        uses: actions/download-artifact@v4
+
+      - name: test
+        run:
+          ls -la
+
+      # - name: Attest release artifacts
+      #   uses: actions/attest-build-provenance@1c608d11d69870c2092266b3f9a6f3abbf17002c # v1.4.3
+      #   with:
+      #     subject-path: "target/release/keylight-*"
 
   # publish:
   #   name: Publish Release
