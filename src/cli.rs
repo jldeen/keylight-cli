@@ -1,9 +1,9 @@
 use clap::{Arg, Command};
 
-pub fn get_app_cli(version: &str) -> Command {
+pub fn get_app_cli(version: &str) -> Command<'_> {
     Command::new("keylight")
         .version(version)
-        .author("Jessica Deen <jessicadeen@me.com>")
+        .author("Jessica Deen <jessicadeen@me.com>\nThompson Marzagao <thompson@marzagao.com>")
         .about("Easy CLI to control Elgato Keylight")
         .arg(
             Arg::new("switch")
@@ -17,8 +17,7 @@ pub fn get_app_cli(version: &str) -> Command {
             Arg::new("brightness")
                 .long("brightness")
                 .short('b')
-                // .possible_values(&["low", "medium", "high"])
-                .help("Brightness value for light")
+                .help("Brightness: percentage (0-100) or preset (low, medium, high)")
                 .required(false)
                 .env("brightness")
                 .default_value("20"),
@@ -27,8 +26,7 @@ pub fn get_app_cli(version: &str) -> Command {
             Arg::new("temperature")
                 .long("temperature")
                 .short('t')
-                // .possible_values(&["warm", "medium", "cool"])
-                .help("Temperature value for light")
+                .help("Temperature: value (143-344) or preset (warm, medium, cool)")
                 .required(false)
                 .env("temperature")
                 .default_value("213"),
@@ -38,19 +36,24 @@ pub fn get_app_cli(version: &str) -> Command {
                 .long("elgato-ip")
                 .short('i')
                 .help("Elgato Keylight IP address")
-                .required(true)
+                .required(false)
                 .aliases(&["elgato_ip", "elgato-ip", "elgato ip"])
                 .env("elgato_ip")
                 .takes_value(true),
         )
         .arg(
-            Arg::new("number_of_lights")
-                .long("number-of-lights")
-                .short('n')
-                .help("Number of Elgato Keylights in use")
-                .required(true)
-                .aliases(&["number_of_lights", "number-of-lights", "number of lights"])
-                .env("number_of_lights")
+            Arg::new("discover")
+                .long("discover")
+                .short('d')
+                .help("Auto-discover Elgato Keylights on the local network via mDNS")
+                .takes_value(false),
+        )
+        .arg(
+            Arg::new("timeout")
+                .long("timeout")
+                .help("Discovery timeout in seconds")
+                .required(false)
+                .default_value("10")
                 .takes_value(true),
         )
         .arg(

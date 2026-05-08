@@ -9,9 +9,9 @@ grep -E --line-buffered '(stop|start) stream' | # filter log events
     echo "Camera state has changed to: $event"
     if [ "$event" = "start" ]; then
       # echo "Keylight on"
-      keylight on
+      keylight on --discover
     else
       # echo "Keylight off"
-      keylight off
+      keylight off --discover
     fi
   done
